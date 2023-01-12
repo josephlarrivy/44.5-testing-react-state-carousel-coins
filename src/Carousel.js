@@ -12,27 +12,30 @@ function Carousel(props) {
   const goForward = () => setCardIdx(cardIdx + 1);
   const goBackward = () => setCardIdx(cardIdx - 1);
 
+  const showLeft = cardIdx > 0;
+  const showRight = cardIdx < 2;
 
   return (
     <div className="Carousel">
       <h1>{props.title}</h1>
       <div className="Carousel-main">
+        { showLeft &&
         <i
           className="fas fa-chevron-circle-left fa-2x"
           onClick={goBackward}
           data-testid="left-arrow"
-        />
+        /> }
         <Card
           caption={card.caption}
           src={card.src}
           currNum={cardIdx + 1}
           totalNum={total}
         />
-        <i
+        { showRight && <i
           className="fas fa-chevron-circle-right fa-2x"
           onClick={goForward}
           data-testid="right-arrow"
-        />
+        /> }
       </div>
     </div>
   );

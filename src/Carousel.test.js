@@ -40,3 +40,21 @@ it("works when you click on the left arrow", function () {
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).not.toBeInTheDocument();
 });
+
+
+it("hides arrows when on first or last images", function () {
+  const { queryByTestId } = render(<Carousel />);
+
+  // expect left arrow not to ba available when page loads (no image to the left)
+  expect(queryByTestId("left-arrow")).not.toBeInTheDocument();
+  expect(queryByTestId("right-arrow")).toBeInTheDocument();
+
+  // move forward in the carousel
+  const rightArrow = queryByTestId("right-arrow");
+  fireEvent.click(rightArrow);
+  fireEvent.click(rightArrow);
+
+  // expect right arrow not to ba available when at end of array (no image to the right)
+  expect(queryByTestId("left-arrow")).toBeInTheDocument();
+  expect(queryByTestId("right-arrow")).not.toBeInTheDocument();
+});
